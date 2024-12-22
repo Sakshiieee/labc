@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+class NetS {
+private:
+    double nt;
+public:
+    NetS(double pr) {
+        this->nt = pr;
+    }
+    double getNetSallary() const {
+        return this->nt;
+    }
+};
+
+class TaxS {
+private:
+    double tx;
+public:
+    TaxS(double s) {
+        this->tx = s;
+    }
+    double getTaxSallary() const {
+        return this->tx;
+    }
+};
+
+class Sallary : public TaxS, public NetS {
+private:
+    double sal;
+public:
+    Sallary(double a, double b) : NetS(a), TaxS(b) {
+        this->sal = a + b;
+    }
+    double getSallary() const {
+        return this->sal;
+    }
+    friend ostream& operator<<(ostream& os, Sallary& sal) {
+        os << sal.getSallary() << "$";
+        return os;
+    }
+};
+
+int main() {
+    double a, b;
+    cout << "Net Sallary: ";
+    cin >> a;
+    cout << "Tax sallary: ";
+    cin >> b;
+    Sallary sal(a, b);
+    cout << sal << endl;
+    return 0;
+}
